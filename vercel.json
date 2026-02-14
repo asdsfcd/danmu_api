@@ -1,11 +1,27 @@
 {
   "version": 2,
-  "functions": {
-    "danmu_api/worker.js": {
-      "runtime": "nodejs20.x"
+  "builds": [
+    {
+      "src": "danmu_api/worker.js",
+      "use": "@vercel/node"
     }
-  },
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/danmu_api/worker.js" }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/danmu_api/worker.js"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/danmu_api/worker.js"
+    },
+    {
+      "src": "/([^/]+)/api/(.*)",
+      "dest": "/danmu_api/worker.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/danmu_api/worker.js"
+    }
   ]
 }
